@@ -1,0 +1,111 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+<body data-aos-easing="ease-in-out" data-aos-duration="1000" data-aos-delay="0" className="">
+  <div id="preloader"></div>
+
+
+
+
+  <main id="main">
+    <section id="menu" class="menu">
+      <div class="container">
+
+        <div class="section-header">
+          <p>Menu <span>American Diner</span></p>
+        </div>
+
+
+        <ul class="nav nav-tabs d-flex justify-content-center aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+          {% for c in Rubros %}
+            
+
+            <li class="nav-item">
+              {% if inicio == c %}
+                <a class="nav-link active show " data-bs-toggle="tab" data-bs-target="#{{c}}">
+            {%else%}
+            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#{{c}}">
+              {% endif %}
+              
+                
+                <h4>{{c |lower|capfirst }}</h4>
+              
+              </a></li>
+
+          {% endfor %}
+        </ul>
+
+        <div class="tab-content aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
+          {% for c in Rubros %}
+            {% if inicio == c %}
+              <div class="tab-pane fade active show" id="{{c}}">
+            {%else%}
+              <div class="tab-pane fade" id="{{c}}">
+            {% endif %}
+            <div class="tab-header text-center">
+              <p>Menu</p>
+              <h3>{{c |lower|capfirst }}</h3>
+            </div>
+            
+              <div class="row gy-5">
+              {% for arti in Articulos %}
+                {% if arti.menu %}
+                           
+                  {% if arti.rubro == c %}
+                    <div class="col-lg-4 menu-item">
+                      <h4>{{arti.descripcion |lower|capfirst }}</h4>
+                      <p class="ingredients">{{arti.receta |lower|capfirst }}</p>
+                      <p class="price">$ {{arti.precio}}</p>
+                      
+
+                    </div>
+                    {% endif %}
+                  {% endif %}
+                
+                {% endfor %}
+
+            
+            </div>
+
+          </div>
+
+
+
+          
+
+
+          {% endfor %}
+
+
+
+
+   
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
+      className="bi bi-arrow-up-short"></i></a>
+
+
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %} "></script>
+  <script src="{% static 'assets/vendor/aos/aos.js' %} "></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %} "></script>
+  <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %} "></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %} "></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %} "></script>
+
+
+  <script src="{% static 'assets/js/scripts.js' %} "></script>
+
+</body>
+
+
+
+{% endblock contenido %}

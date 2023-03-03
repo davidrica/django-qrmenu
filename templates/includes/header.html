@@ -1,0 +1,58 @@
+<!--
+  
+-->
+
+{% load static %}
+<header id="header" class="header fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-center">
+        <a href="#" class="logo d-flex align-items-center ">
+            <img src="{% static 'assets/img/logo.png' %} " alt=""></a>
+            <a type="button" class="btn btn-outline-danger" href="#"><i class="fa-solid fa-key"></i></a>
+            
+    </div>
+    
+</header>
+<!-- 
+<header >
+    
+    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+            
+            <h4 class="display-7"><img class="mb-2" src="{% static 'assets/img/logo.png' %} " alt="" width="32" height="32"> </h4>
+        </a>
+
+        <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto align-items-center">
+            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+
+                <div class="btn-group me-2" role="group" aria-label="Second group">
+                    {% if user.is_authenticated %}
+                        <div class="flex-shrink-0 dropdown">
+                            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{% static 'img/user.png' %} " alt="mdo" width="32" height="32" class="rounded-circle">
+                            {{ user }}
+                            </a>
+                            <ul class="dropdown-menu text-small shadow">
+                            <li>
+                            <a class="dropdown-item" href="#">Noticias</a></li>
+                            <li><a class="dropdown-item" href="#">Categorias</a></li>
+                            <li><a class="dropdown-item" href="#">Mi Cuenta</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Cerrar</a></li>
+                            </ul>
+                        </div>
+                    
+                    {% else %}
+                        <a type="button" class="btn btn-outline-danger" href="#"><i class="fa-solid fa-users"></i>Iniciar Session</a>
+                        
+                        
+                    {% endif %}
+                </div>
+            </div>
+
+        </nav>
+
+
+    </div>
+
+
+</header> -->
