@@ -1,7 +1,7 @@
 from django.db import models
 from rubros.models import Rubros
 import datetime
-
+ 
 class Articulos(models.Model):
     codigo     = models.IntegerField()
     descripcion= models.CharField(max_length=100)

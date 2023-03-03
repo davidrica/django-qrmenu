@@ -1,5 +1,5 @@
 from pathlib import Path
-#from decouple import config
+from decouple import config
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -17,10 +17,16 @@ DEBUG = True
 IMPORT_EXPORT_USE_TRANSACTIONS = True  
 
 ALLOWED_HOSTS = []
+AUTH_USER_MODEL = "usuarios.Usuario"
+LOGIN_REDIRECT_URL = "/"
+LOGIN_URL = "/login/"
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR,'static'),
 )
+
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -31,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'articulos',
+    'usuarios',
     'rubros',
     'import_export'
 ]
@@ -71,10 +78,21 @@ WSGI_APPLICATION = 'qrmenu.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': config("NAME"),
+        'USER': config("USER"),
+        'PASSWORD': config("PASSWORD"),
+        'HOST': config("HOST"),
+    },
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation

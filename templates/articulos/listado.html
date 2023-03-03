@@ -6,88 +6,145 @@
 
 <body data-aos-easing="ease-in-out" data-aos-duration="1000" data-aos-delay="0" className="">
     <div id="preloader"></div>
-  
+
     <main id="main">
         <section id="menu" class="menu">
+            
+
+            <div class="row p-2">
+                <div class="col">
+                    <a type="button" class="btn btn-outline-primary" href="{% url 'Articulos:importar' %}"><i
+                            class="fa fa-cloud"></i> Importar</a>
+                    <a type="button" class="btn btn-outline-primary" href="{% url 'Articulos:qr' %}"> <i
+                            class="fa fa-print"></i> QR Menu</a>
+                </div>
+                <div class="col">
+                <form class="d-flex" role="search" method="get">
+                    
+                    <select class="form-select" aria-label="Seleccion Categoria" name="rubro" >
+                      <option value="0">Todas</option>
+                      {% for c in ListaRubros.all %}
+                          
+                        <option value="{{c.id}}">{{ c }}</option>
+        
+                      
+                      
+                      {% endfor %}
+        
+                    </select>
+                      <input class="form-control me-2" type="search" placeholder="Titulo a Buscar" aria-label="Search" name="buscador">
+                      <button class="btn btn-outline-success" type="submit">Buscar</button>
+                
+                  </form>
+                </div>
+            </div>
+            <br>
+            <div class="card">
+                <div class="card-header">
+                    Lista de productos
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Cod.</th>
+                                <th scope="col">Menu</th>
+                                <th scope="col">Descripcion</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">Rubro</th>
+                                <th scope="col">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for p in Articulos %}
+                            <tr>
+                                <th scope="row">{{p.id}}</th>
+                                <td>{{p.codigo}}</td>
+                                <td>
+                                    
+                                    {% if p.menu %}
+                                        <input class="form-check-input" type="checkbox" checked value="{% url 'Articulos:ver_menu' p.id %}" id="{{p.id}}" >
+                                    {%else%}
+                                        <input class="form-check-input" type="checkbox" value="{% url 'Articulos:ver_menu' p.id %}" id="{{p.id}}" >
+                                    {% endif %}
+                                    <!-- 
+                                    <small class="text-muted"><a type="button" class="btn btn-success" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-smile" viewBox="0 0 16 16">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                        <path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
+                                      </svg></a>
+                                    </small> -->
+
+                                </td>
+                                <td>{{p.descripcion}}</td>
+                                <td>${{p.precio}}</td>
+                                <td>{{p.rubro}}</td>
+
+                                <td>
+                                    <a href="{% url 'Articulos:editar' p.id %}" class="btn btn-outline-info">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a href="{% url 'Articulos:borrar' p.id %}" class="btn btn-outline-danger">
+                                        <i class="fa-solid fa-minus-square"></i>
+                                    </a>
 
 
-<div class="row p-2">
-    <div class="col">
-        <a type="button" class="btn btn-success" href="{% url 'Articulos:importar' %}">Importar</a>
-    </div>
-</div><br>
-<div class="card">
-    <div class="card-header">
-        Lista de productos
-    </div>
-    <div class="card-body">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Cod.</th>
-                    <th scope="col">Menu</th>
-                    <th scope="col">Descripcion</th>
-                    <th scope="col">Precio</th>
-                    <th scope="col">Rubro</th>
-                    <th scope="col">Opciones</th>
-                </tr>
-            </thead>
-            <tbody>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
 
-                {% for p in Articulos %}
-                    <tr>
-                        <th scope="row">{{p.id}}</th>
-                        <td>{{p.codigo}}</td>
-                        <td>
-                            {% if p.menu %}
-                            <input class="form-check-input" type="checkbox" value="" id="{{p.id}}" checked > 
-                            {%else%}
-                            <input class="form-check-input" type="checkbox" value="" id="{{p.id}}" > 
-                            {% endif %}
-                        </td>
-                        <td>{{p.descripcion}}</td>
-                        <td>${{p.precio}}</td>
-                        <td>{{p.rubro}}</td>
+                    {% include 'includes/paginado.html' %}
+                </div>
+            </div>
 
-                        <td>
-                            <a href="{% url 'Articulos:editar' p.id %}" class="btn btn-outline-info">
-                              <i class="fa fa-pencil" aria-hidden="true"></i>
-                            </a>
-                            <a href="{% url 'Articulos:borrar' p.id %}"class="btn btn-outline-danger" >
-                              <i class="fa-solid fa-minus-square"></i>
-                            </a>
-                           
-
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-        {% include 'includes/paginado.html' %}
-    </div>
-</div>
-
-</section>
+        </section>
     </main>
 
-  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
-      className="bi bi-arrow-up-short"></i></a>
+    <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
+            className="bi bi-arrow-up-short"></i></a>
 
 
 
-  <!-- Vendor JS Files -->
-  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %} "></script>
-  <script src="{% static 'assets/vendor/aos/aos.js' %} "></script>
-  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %} "></script>
-  <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %} "></script>
-  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %} "></script>
-  <script src="{% static 'assets/vendor/php-email-form/validate.js' %} "></script>
+    <!-- Vendor JS Files -->
+    <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %} "></script>
+    <script src="{% static 'assets/vendor/aos/aos.js' %} "></script>
+    <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %} "></script>
+    <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %} "></script>
+    <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %} "></script>
+    <script src="{% static 'assets/vendor/php-email-form/validate.js' %} "></script>
 
 
-  <script src="{% static 'assets/js/scripts.js' %} "></script>
+    <script src="{% static 'assets/js/scripts.js' %} "></script>
+    <script>
+        // function addEventListenerByClass(className, event, fn) {
+        //     var list = document.getElementsByClassName(className);
+        //     for (var i = 0, len = list.length; i < len; i++) {
+        //         list[i].addEventListener(event, fn, false);
+        //     }
+        // }
+        // var click= function() {
+        //     console.log('a')
+        // }
+        
+        //ar a = [];
+document.querySelectorAll('input[type=checkbox]').forEach(el => {
+   
+   
+    el.addEventListener('change', function(event) {
+       // a.push(this.value)
+      //console.log(this.value    )
+      document.location.href = this.value;
+        //event.preventDefault();
+      //mobileNavToogle();
+    })
+  });
+        
+        
+
+    </script>
 
 </body>
 {% endblock contenido %}
-

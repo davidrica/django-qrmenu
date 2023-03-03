@@ -1,9 +1,10 @@
 from http.client import HTTPResponse
 import pandas as pd
-from django.shortcuts import render
+from django.shortcuts import render,HttpResponse,redirect
 from django.views.generic import ListView, UpdateView, FormView,CreateView,DeleteView
 from django.urls import reverse
 from django.urls import reverse_lazy
+from django.views.decorators.csrf import csrf_exempt
 #from django.utils import timezone
 #from django.utils.dateparse import parse_date
 from django.core.files.storage import FileSystemStorage
@@ -12,20 +13,24 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from tablib import Dataset 
 
-#from utils.mixins import IsAdminMixin
+from utils.mixins import IsAdminMixin
 
 #from comentarios.models import Comentarios
 from .models import Articulos
 from rubros.models import Rubros
 from .forms import ArticuloForm
 from rubros.models import Rubros
+   
+
+from django.utils.six import BytesIO
+import qrcode
 
 import os
 
 
  
 
-class Listado(ListView):
+class Listado(LoginRequiredMixin, IsAdminMixin,ListView):
     template_name = "articulos/listado.html"
     model = Articulos
     context_object_name = "Articulos"
@@ -35,13 +40,14 @@ class Listado(ListView):
         #my_date = datetime.datetime(2012, 2, 12)
         articulos = Articulos.objects.all()
         
-        #parametros = {}
+        parametros = {}
         
-        #titulo   = self.request.GET.get("buscador")
-        #cat      = self.request.GET.get("categoria")
+        titulo   = self.request.GET.get("buscador")
+        cat      = self.request.GET.get("rubro")
         #fecha    = self.request.GET.get("fecha")
-        #if titulo:
-        #    parametros["titulo__contains"]= titulo
+        if titulo:
+            ##parametros["descripcion__contains"]= titulo
+            parametros["descripcion__icontains"]= titulo
 #            parametros['titulo__contains']=
         #if fecha:
         #    date = parse_date(fecha)
@@ -49,12 +55,12 @@ class Listado(ListView):
         #    parametros["fecha__gte"]= my_date.combine(date, datetime.time(0, 0)) 
         #    parametros["fecha__lte"]= my_date.combine(date, datetime.time(23, 59)) 
             
-        #if cat !='0' and cat is not None:
+        if cat !='0' and cat is not None:
        
-        #    parametros["categoria"]= cat
+            parametros["rubro"]= cat
 
         
-        #articulos = articulos.filter(**parametros)
+        articulos = articulos.filter(**parametros)
     
    
         
@@ -63,13 +69,14 @@ class Listado(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
+        context["ListaRubros"] =  Rubros.objects.all()
         return context
 
 
 
 
-#class Editar(LoginRequiredMixin, IsAdminMixin, UpdateView):   
-class Editar(UpdateView):   
+class Editar(LoginRequiredMixin, IsAdminMixin, UpdateView):   
+#class Editar(UpdateView):   
     model         = Articulos 
     template_name = "articulos/editar.html"
     form_class    = ArticuloForm     
@@ -83,7 +90,7 @@ class Editar(UpdateView):
         return context
 
 
- 
+@csrf_exempt
 def Importar(request):  
     data = None
     
@@ -131,9 +138,31 @@ def Importar(request):
     return render(request, template_name, contexto)
 
 
+@csrf_exempt
+def qr_menu(request):  
 
-def ver_menu(request, id_producto):
-    arti = Articulos.objects.filter(pk=id_producto)
-    if not arti.menu:
-        arti.update(menu=not arti.menu)
-    return HttpResponseRedirect(reverse("inicio"))
+
+    # Create your views here.
+
+
+    data = 'Amo la pitón'
+    img = qrcode.make(data)
+
+    buf = BytesIO()		# BytesIO se da cuenta de leer y escribir bytes en la memoria
+    img.save(buf)
+    image_stream = buf.getvalue()
+
+    response = HttpResponse(image_stream, content_type="image/png")
+    return response
+
+
+@csrf_exempt
+def ver_menu(request, pk):
+    contexto = {}
+    arti = Articulos.objects.filter(id=pk).first()
+    menu = not arti.menu
+    arti = Articulos.objects.filter(id=pk)
+    arti.update(menu=menu)
+    return HttpResponseRedirect(reverse("Articulos:listado"))
+
+    #return HttpResponseRedirect(reverse("inicio"))

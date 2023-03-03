@@ -6,9 +6,16 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-center">
         <a href="#" class="logo d-flex align-items-center ">
-            <img src="{% static 'assets/img/logo.png' %} " alt=""></a>
-            <a type="button" class="btn btn-outline-danger" href="#"><i class="fa-solid fa-key"></i></a>
-            
+            <img src="{% static 'assets/img/logo.png' %} " alt="">
+        </a>
+        {% if user.is_authenticated %}
+            <a type="button" class="btn btn-outline-danger" href="{% url 'Articulos:listado' %}"><i class="fa-solid fa-shopping-cart"></i></a>
+            <a type="button" class="btn btn-outline-danger" href="{% url 'logout' %}"><i class="fa-solid fa-close"></i></a>
+        {% else %}
+            <a type="button" class="btn btn-outline-danger" href="{% url 'login' %}"><i class="fa-solid fa-key"></i></a>
+        
+        
+        {% endif %}
     </div>
     
 </header>

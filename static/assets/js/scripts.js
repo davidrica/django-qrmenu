@@ -1,6 +1,6 @@
 
 window.addEventListener('DOMContentLoaded', () => {
-  console.log('addEventListener');
+
   "use strict";
   
   const preloader = document.querySelector('#preloader');
@@ -18,6 +18,7 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  
   /**
    * document.querySelector links active state on scroll
    */
