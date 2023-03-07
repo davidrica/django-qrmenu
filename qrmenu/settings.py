@@ -16,7 +16,9 @@ DEBUG = True
 IMPORT_EXPORT_USE_TRANSACTIONS = True  
 
 ALLOWED_HOSTS = ["*"]
-
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost',
+)
 
 AUTH_USER_MODEL = "usuarios.Usuario"
 LOGIN_REDIRECT_URL = "/"
