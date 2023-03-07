@@ -16,7 +16,7 @@ DEBUG = True
 IMPORT_EXPORT_USE_TRANSACTIONS = True  
 
 ALLOWED_HOSTS = ["*"]
-CORS_ORIGIN_ALLOW_ALL = True
+
 
 AUTH_USER_MODEL = "usuarios.Usuario"
 LOGIN_REDIRECT_URL = "/"
@@ -24,7 +24,7 @@ LOGIN_URL = "/login/"
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR,'static'),
-)
+) 
 
 
 
@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'articulos',
     'usuarios',
     'rubros',
-    'import_export'
+    'import_export',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -139,3 +140,20 @@ MEDIA_URL= "/media/"
 MEDIA_ROOT= "media/"
 MEDIA_DIR = f'{BASE_DIR}/media'
 
+#
+#CORS_ORIGIN_ALLOW_ALL = True
+#SECURE_HSTS_SECONDS = 86400
+
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+
+#CSRF_TRUSTED_ORIGINS = ['https://masdbs.com.ar']
+
+# SSL support
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# session expire at browser close
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
