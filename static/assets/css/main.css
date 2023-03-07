@@ -950,7 +950,7 @@ section {
 }
 
 .menu .tab-content .menu-item .price {
-  font-size: 24px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--color-primary);
 }
@@ -1701,4 +1701,45 @@ section {
 
 .footer .credits a {
   color: #fff;
+}
+
+
+.footer2 {
+  padding: 35px 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
+  height: auto;
+  background-color:#3f9244;
+  background-color: rgba(0,0,0,0);
+}
+
+
+
+.footer2 > .container {
+  padding-right: 10px;
+  padding-left: 10px;
+  
+}
+
+.outer {
+  color:#000000;
+  border: none;
+  border-radius: 1;
+  /*background-color: rgba(0, 0, 0, .4);*/
+	width: 100%;
+  height: 50px;
+	position:fixed;
+	bottom:1%;
+	float: right;
+	margin: 4px;
+	border-radius: 4px;
+	padding: 4px;
+  
+}
+
+.imagenRedes{
+    width: 32px
+        
 }
