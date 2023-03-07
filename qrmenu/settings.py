@@ -131,11 +131,13 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATIC_ROOT = "/home/webpython/qrmenu/static/"
+if DEBUG:
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR,'static'),
+    ) 
+else:
+    STATIC_ROOT = "/home/webpython/qrmenu/static/"
 
-#STATICFILES_DIRS = (
-#    os.path.join(BASE_DIR,'static'),
-#) 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -155,10 +157,16 @@ SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 #CSRF_TRUSTED_ORIGINS = ['https://masdbs.com.ar']
 
 # SSL support
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+if DEBUG:
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
+    SECURE_SSL_REDIRECT = False
+else:
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 
 # session expire at browser close
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
