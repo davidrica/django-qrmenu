@@ -1,4 +1,9 @@
 media/
 
+*.jpg
+*.png
+*.jpeg
+
 *.pyc
 *.env
+settings.py
