@@ -11,6 +11,7 @@
       <section id="menu" class="menu">
 
         <div class="row p-2">
+          {% include 'includes/dashboard.html' %}
           <div class="col">
               <p><a type="button" class="btn btn-outline-primary" href="{% url 'Articulos:importar' %}">Importar</a>
               <a type="button" class="btn btn-outline-success" href="{% url 'Articulos:listado' %}" >Cancelar</a></p>

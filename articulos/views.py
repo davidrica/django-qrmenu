@@ -2,8 +2,7 @@ from http.client import HTTPResponse
 import pandas as pd
 from django.shortcuts import render,HttpResponse,redirect
 from django.views.generic import ListView, UpdateView, FormView,CreateView,DeleteView
-from django.urls import reverse
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 #from django.utils import timezone
 #from django.utils.dateparse import parse_date
@@ -18,6 +17,7 @@ from utils.mixins import IsAdminMixin
 #from comentarios.models import Comentarios
 from .models import Articulos
 from rubros.models import Rubros
+from sucursales.models import Sucursales
 from .forms import ArticuloForm
 from rubros.models import Rubros
    
@@ -26,8 +26,8 @@ from django.utils.six import BytesIO
 import qrcode
 
 import os
-
-
+from django.http import FileResponse
+from utils.mixins import is_admin_required
  
 
 class Listado(LoginRequiredMixin, IsAdminMixin,ListView):
@@ -37,6 +37,7 @@ class Listado(LoginRequiredMixin, IsAdminMixin,ListView):
     paginate_by = 50
 
     def get_queryset(self):
+        
         #my_date = datetime.datetime(2012, 2, 12)
         articulos = Articulos.objects.all()
         
@@ -86,13 +87,16 @@ class Editar(LoginRequiredMixin, IsAdminMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-    
+        context["sucursal"] =  Sucursales.objects.all()
         return context
 
 
-@csrf_exempt
+
+
+@is_admin_required()
 def Importar(request):  
     data = None
+    mi_empresa = request.user.empresa
     
     template_name = 'articulos/importar.html' 
     if request.method == 'POST' :
@@ -109,7 +113,7 @@ def Importar(request):
                 descripcion ,a,b,c,d,h,i= row
                 existe= Rubros.objects.filter(descripcion=descripcion)
                 if not existe:
-                    Rubros.objects.create(descripcion=descripcion)        
+                    Rubros.objects.create(descripcion=descripcion,empresa=mi_empresa)        
                 else:
                     existe.update(descripcion=descripcion)
 
@@ -125,7 +129,7 @@ def Importar(request):
                 existe= Articulos.objects.filter(codigo=codigo)
             
                 if not existe:
-                    Articulos.objects.create(codigo=codigo, descripcion=descripcion,rubro=rubro,precio=precio)        
+                    Articulos.objects.create(codigo=codigo, descripcion=descripcion,rubro=rubro,precio=precio,empresa=mi_empresa)        
                 else:
                     existe.update(descripcion=descripcion,precio=precio)
 
@@ -138,25 +142,51 @@ def Importar(request):
     return render(request, template_name, contexto)
 
 
-@csrf_exempt
-def qr_menu(request):  
-
-
-    # Create your views here.
-
-
-    data = 'Amo la pitón'
-    img = qrcode.make(data)
-
-    buf = BytesIO()		# BytesIO se da cuenta de leer y escribir bytes en la memoria
-    img.save(buf)
-    image_stream = buf.getvalue()
-
-    response = HttpResponse(image_stream, content_type="image/png")
-    return response
 
 
 @csrf_exempt
+@is_admin_required()
+def qr_crear(request):  
+    template_name = 'articulos/qr_crear.html' 
+    contexto = {}
+    sucursales = Sucursales.objects.all()
+    contexto["Sucursales"] =  sucursales
+    
+    if request.method == 'POST' :
+       
+        parametros = {}
+        
+        cat      = request.POST.get("rubro")
+        print(cat)
+        if cat !='0' and cat is not None:
+       
+            parametros["id"]= cat
+
+        
+            sucursales = sucursales.filter(**parametros)
+        
+    
+        
+            data = sucursales[0].url
+            img = qrcode.make(data)
+
+            buf = BytesIO()		# BytesIO se da cuenta de leer y escribir bytes en la memoria
+            img.save(buf)
+            image_stream = buf.getvalue()
+            response = HttpResponse(image_stream, content_type="image/png")
+            return response
+        
+        
+
+    
+    
+
+    return render(request, template_name, contexto)
+ 
+        
+
+@csrf_exempt
+@is_admin_required()
 def ver_menu(request, pk):
     contexto = {}
     arti = Articulos.objects.filter(id=pk).first()

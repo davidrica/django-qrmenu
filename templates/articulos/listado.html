@@ -12,12 +12,9 @@
             
 
             <div class="row p-2">
-                <div class="col">
-                    <a type="button" class="btn btn-outline-primary" href="{% url 'Articulos:importar' %}"><i
-                            class="fa fa-cloud"></i> Importar</a>
-                    <a type="button" class="btn btn-outline-primary" href="{% url 'Articulos:qr' %}"> <i
-                            class="fa fa-print"></i> QR Menu</a>
-                </div>
+                
+                {% include 'includes/dashboard.html' %}
+                
                 <div class="col">
                 <form class="d-flex" role="search" method="get">
                     
@@ -53,6 +50,7 @@
                                 <th scope="col">Descripcion</th>
                                 <th scope="col">Precio</th>
                                 <th scope="col">Rubro</th>
+                                <th scope="col">Sucursales</th>
                                 <th scope="col">Opciones</th>
                             </tr>
                         </thead>
@@ -80,7 +78,14 @@
                                 <td>{{p.descripcion}}</td>
                                 <td>${{p.precio}}</td>
                                 <td>{{p.rubro}}</td>
-
+                                <td >
+                                    
+                                    {% for t in p.sucursal.all %}
+                                      <span class="badge text-bg-danger">{{t}}</span>
+                                    
+                                    {% empty %}
+                                    {% endfor %}
+                                  </td>
                                 <td>
                                     <a href="{% url 'Articulos:editar' p.id %}" class="btn btn-outline-info">
                                         <i class="fa fa-pencil"></i>

@@ -5,7 +5,7 @@
 
 {% block contenido %}
 
-<body data-aos-easing="ease-in-out" data-aos-duration="1000" data-aos-delay="0" className="">
+<body data-aos-easing="ease-in-out" data-aos-duration="1000" data-aos-delay="0" className="" style="background:var(--color-fondo);">
   <div id="preloader"></div>
 
 
@@ -14,111 +14,42 @@
   <main id="main">
     <section id="menu" class="menu">
       <div class="container">
-        <ul class="nav nav-tabs d-flex justify-content-center  "">
-          <li class="nav-item">
-            <a type="button" class="btn btn-outline-primary" href="{% url 'inicio' %}"><i class="fa fa-street-view"></i> Modelo 1</a>
-          </li>
-          
-          <li class="nav-item">
-            <a type="button" class="btn btn-outline-primary" href="{% url 'inicio2' %}"><i class="fa fa-street-view"></i> Modelo 2</a>
-          </li>
-          
-          <li class="nav-item">
-            <a type="button" class="btn btn-outline-primary" href="{% url 'inicio3' %}"><i class="fa fa-street-view"></i> Modelo 3</a>
-          </li>
-          
 
-        </ul>
         <div class="section-header">
-          <p>Menu <span>American Diner</span></p>
+          <p>Menu <span>{{sucursal}}</span></p>
         </div>
 
-
-        <!-- <ul class="nav nav-tabs d-flex justify-content-center aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
-          {% for c in Rubros %}
+        {% for rubro in Rubros %}
+          <div class="tab-pane fade active show" id="menu-starters" role="tabpanel" 
+          style="border-style: double;padding: 23px; margin-bottom: 30px; border-radius: 1em; ">
             
-
-            <li class="nav-item">
-              {% if inicio == c %}
-                <a class="nav-link active show " data-bs-toggle="tab" data-bs-target="#{{c}}">
-            {%else%}
-            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#{{c}}">
-              {% endif %}
+            
+            <div class="tab-header text-center"style="margin-top:-38px;padding-bottom:10px">
               
-                
-                <h4>{{c |lower|capfirst }}</h4>
-              
-              </a></li>
-
-          {% endfor %}
-        </ul> -->
-
-        <div class="tab-content fadeaos-init aos-animate" data-aos="fade-up" data-aos-delay="300" >
-          {% for c in Rubros %}
-            {% if inicio == c %}
-              <div class="" id="{{c}}" style="border: 1px;border-style: solid; margin-bottom: 23px;">
-            {%else%}
-              <div class="" id="{{c}}" style="border: 1px;border-style: solid;margin-bottom: 23px;">
-            {% endif %}
-              <div class="tab-header text-center" style="border: 1px;border-style: solid; padding: 23px;">
-                <div class="row justify-content-around">
-                  <div class="col" style="text-align-last: left;">
-                    <p>Menu</p>
-                    <h3>{{c |lower|capfirst }}</h3>
-                  </div>
-                  <div class="col">
-                    {% if c.imagen %}
-                      <img src="{{c.imagen.url}}" class="rounded  img-thumbnail" width="100px" height="100px">
-                    {% else %}
-                      <img src="" class="rounded" alt="...">
-                    {% endif %}
-                  </div>
-
-                </div>
-                
-                
-              </div>
-            
-              <div class="row gy-5" style="border: 1px;border-style: solid;padding: 23px;--bs-gutter-y: 0px;--bs-gutter-x: 0px;">
-              {% for arti in Articulos %}
-                {% if arti.menu %}
-                           
-                  {% if arti.rubro == c %}
-                  
-                    <div class="col-lg-4 menu-item " style="border-bottom: 1px solid var(--color-primary);" >
-                      <div class="row justify-content-between" >
-                      <div class="col" style="text-align-last: left;"><h4>{{arti.descripcion |lower|capfirst }}</h4></div>
-                      
-                      <!-- <div class="col"><p >{{arti.receta |lower|capfirst }}</p></div> -->
-                      
-                      <div class="col"><p class="price">$ {{arti.precio}}</p></div>
-                      
-                    </div>
-
-                    </div>
-                    {% endif %}
-                  {% endif %}
-                
-                {% endfor %}
-
-            
+              <h3 class="h3rubros">{{rubro|lower|capfirst}}</h3>
             </div>
 
+            <div class="row gy-5" style="--bs-gutter-y: 0px;--bs-gutter-x: 0px">
+              {% for arti in Articulos %}
+                {% if arti.rubro == rubro %}
+                  <div class="col-lg-4 " style="border-bottom: 1px solid black; margin-left: 10px;margin-top: 10px;" >
+                    <div class="row justify-content-between">
+                      <div class="col" style="text-align-last: left; ">
+                        <h4 style="font-family: 'El Fonte Angelia', sans-serif;">{{arti.descripcion |lower|capfirst }}</h4>
+                      </div>
+                      <div class="col" style="text-align-last: right;">
+                      <p class="price" style="font-family: 'El Fonte Angelia', sans-serif;; color: black;">$ {{arti.precio}}</p>
+                      </div>
+
+                    </div>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
           </div>
+        {% endfor %}
 
-
-
-          
-
-
-          {% endfor %}
-
-
-
-
-   
-        </div>
-      </div>
+      
     </section>
   </main>
 
@@ -143,3 +74,6 @@
 
 
 {% endblock contenido %}
+
+
+

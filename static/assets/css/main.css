@@ -21,6 +21,9 @@
   --color-default: #212529;
   --color-primary: #ce1212;
   --color-secondary: #37373f;
+  --color-fondo:#71e0e0;
+  /* --color-fondo:#f3cbd3; */
+
 }
 
 /* Smooth scroll behavior */
@@ -1742,4 +1745,12 @@ section {
 .imagenRedes{
     width: 32px
         
+}
+
+
+.h3rubros{
+  font-family:  'Cedarville Cursive', serif;
+  margin:auto;
+  width:fit-content;
+  background: var(--color-fondo);
 }

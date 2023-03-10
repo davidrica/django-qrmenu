@@ -1,0 +1,13 @@
+
+{% load static %}
+<div class="col">
+    <a type="button" class="btn btn-outline-primary" href="{% url 'Articulos:importar' %}">
+        <i class="fa fa-cloud"></i> Importar
+    </a>
+    <a type="button" class="btn btn-outline-primary" href="{% url 'Articulos:qr_crear' %}"> 
+        <i class="fa fa-print"></i> QR Menu
+    </a>
+    <a type="button" class="btn btn-outline-primary" href="{% url 'Sucursales:listado' %}"> 
+        <i class="fa fa-building"></i> Sucursales
+    </a>
+</div>

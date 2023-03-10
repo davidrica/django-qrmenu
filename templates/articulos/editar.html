@@ -9,14 +9,24 @@
   
     <main id="main">
         <section id="menu" class="menu">
-<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+            
+            <div class="row p-2">
+                
+               
+                    {% include 'includes/dashboard.html' %}
+                    
+       
+        </div>
         <div class="row p-2">
-            <div class="col">
-                <a type="button" class="btn btn-outline-primary" href="{% url 'Articulos:importar' %}"><i class="fa fa-cloud"></i> Importar</a>
-                <a type="button" class="btn btn-outline-success" type="submit" name="btn_ingresar"    ><i class="fa fa-check"></i> Guardar</button>
-                <a type="button" class="btn btn-outline-danger"  href="{% url 'Articulos:listado' %}" ><i class="fa fa-remove"></i> Cancelar</a>
-            </div>
-        </div><br>
+            <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+        
+        <div class="col">
+            <button class="btn btn-outline-success" type="submit" name="btn_ingresar"><i class="fa fa-check"></i> Guardar</button>
+
+            <a type="button" class="btn btn-outline-danger"  href="{% url 'Articulos:listado' %}" ><i class="fa fa-remove"></i> Cancelar</a>
+        </div>
+    </div>
+        <br>
         <div class="card">
             <div class="card-header">
                 Editar
@@ -30,6 +40,7 @@
                 
             </div>
         </div>
+        
     </form>
     </section>
     </main>

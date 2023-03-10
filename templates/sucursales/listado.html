@@ -1,0 +1,109 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+<body data-aos-easing="ease-in-out" data-aos-duration="1000" data-aos-delay="0" className="">
+    <div id="preloader"></div>
+
+    <main id="main">
+        <section id="menu" class="menu">
+            
+
+            <div class="row p-2">
+                {% include 'includes/dashboard.html' %}
+                
+                <div class="col">
+                <form class="d-flex" role="search" method="get">
+                    
+                      <input class="form-control me-2" type="search" placeholder="Titulo a Buscar" aria-label="Search" name="buscador">
+                      <button class="btn btn-outline-success" type="submit">Buscar</button>
+                
+                  </form>
+                </div>
+            </div>
+            <br>
+            <div class="card">
+                <div class="card-header">
+                    Lista de Sucursales
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Descripcion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for s in Sucursales %}
+                            <tr>
+                                <th scope="row">{{s.id}}</th>
+                                <td>{{s.descripcion}}</td>
+                                <td>
+                                    <a href="{% url 'Sucursales:editar' s.id %}" class="btn btn-outline-info">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+
+
+
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    {% include 'includes/paginado.html' %}
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
+            className="bi bi-arrow-up-short"></i></a>
+
+
+
+    <!-- Vendor JS Files -->
+    <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %} "></script>
+    <script src="{% static 'assets/vendor/aos/aos.js' %} "></script>
+    <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %} "></script>
+    <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %} "></script>
+    <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %} "></script>
+    <script src="{% static 'assets/vendor/php-email-form/validate.js' %} "></script>
+
+
+    <script src="{% static 'assets/js/scripts.js' %} "></script>
+    <script>
+        // function addEventListenerByClass(className, event, fn) {
+        //     var list = document.getElementsByClassName(className);
+        //     for (var i = 0, len = list.length; i < len; i++) {
+        //         list[i].addEventListener(event, fn, false);
+        //     }
+        // }
+        // var click= function() {
+        //     console.log('a')
+        // }
+        
+        //ar a = [];
+document.querySelectorAll('input[type=checkbox]').forEach(el => {
+   
+   
+    el.addEventListener('change', function(event) {
+       // a.push(this.value)
+      //console.log(this.value    )
+      document.location.href = this.value;
+        //event.preventDefault();
+      //mobileNavToogle();
+    })
+  });
+        
+        
+
+    </script>
+
+</body>
+{% endblock contenido %}

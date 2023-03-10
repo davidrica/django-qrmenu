@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'empresa',
     'articulos',
+    'sucursales',
     'usuarios',
     'rubros',
     'import_export',
@@ -171,3 +173,27 @@ else:
 
 # session expire at browser close
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+#envio de mail correo electronico
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = config('EMAIL_PORT')
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+
+EMAIL_FILE_PATH = os.path.join(BASE_DIR,'sent_emails'),
+DEFAULT_FROM_EMAIL =config('DEFAULT_FROM_EMAIL')
+#if DEBUG:
+#    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+##else:
+#    EMAIL_USE_TLS = True
+#    EMAIL_USE_SSL = True
+#    EMAIL_HOST = 'c2291054.ferozo.com'
+#    EMAIL_PORT = 465
+#    EMAIL_HOST_USER = 'admin@davidricardotorres.com.ar'
+#    EMAIL_HOST_PASSWORD = 'Tk@UAsM5qB'
+#    pass

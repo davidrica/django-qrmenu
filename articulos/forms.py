@@ -1,6 +1,6 @@
 from django import forms
 from .models import Articulos 
-
+from sucursales.models import Sucursales
 class DatasetForm(forms.ModelForm):
     class Meta:
         model = Articulos
@@ -13,7 +13,9 @@ class ArticuloForm(forms.ModelForm):
     codigo= forms.CharField(label="Codigo", widget=forms.NumberInput())
     descripcion= forms.CharField(label="Descripcion", widget=forms.TextInput())
     #precio= forms.CharField(label="Precio", widget=forms.DecimalField(is_hidden=False))
-   
+
+    sucursal = forms.ModelMultipleChoiceField(queryset=Sucursales.objects.all(),
+       widget=forms.CheckboxSelectMultiple)
 
 
     class Meta:
