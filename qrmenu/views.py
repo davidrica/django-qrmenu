@@ -49,25 +49,26 @@ def inicio2(request,empresa,sucursal):
             parametros = {}
             
             parametros["empresa"]= empresa
-            
+            #todos los rubros de la empresa
             rubros    = Rubros.objects.filter(**parametros)
             
             parametros["sucursal"]= sucursal
 
             articulos = Articulos.objects.filter(**parametros)
-            
+            #todos los rubros de los articulso
+            rubros =Rubros.objects.filter(arti_rubros__in=articulos.values_list('rubro')).distinct()
             #articulos = articulos.objects.filter()
             
             # ===============================
             # query en django utilizando el orm
-            
-            inicio    = Rubros.objects.first()#.filter(empresa=emp.id).first() 
+            #rubros    = Rubros.objects.filter(**parametros)
+            #inicio    = Rubros.objects.first()#.filter(empresa=emp.id).first() 
             print(rubros)
             contexto = {
                 'sucursal':suc.descripcion,
                 'Articulos': articulos.order_by('descripcion',"rubro"),
                 'Rubros':rubros.order_by("descripcion"),
-                'inicio':inicio,
+                #'inicio':inicio,
             }
     
             return render(request, template_name, contexto)

@@ -5,7 +5,9 @@
 
 {% block contenido %}
 
-<body data-aos-easing="ease-in-out" data-aos-duration="1000" data-aos-delay="0" className="" style="background:var(--color-fondo);">
+<body data-aos-easing="ease-in-out" data-aos-duration="1000" data-aos-delay="0" className="" 
+style="background:var(--color-fondo);"
+>
   <div id="preloader"></div>
 
 
@@ -44,6 +46,8 @@
                     </div>
                   </div>
                 {% endif %}
+                {% empty %}
+                
               {% endfor %}
             </div>
           </div>
