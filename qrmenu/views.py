@@ -63,7 +63,7 @@ def inicio2(request,empresa,sucursal):
             # query en django utilizando el orm
             #rubros    = Rubros.objects.filter(**parametros)
             #inicio    = Rubros.objects.first()#.filter(empresa=emp.id).first() 
-            print(rubros)
+           # print(rubros)
             contexto = {
                 'sucursal':suc.descripcion,
                 'Articulos': articulos.order_by('descripcion',"rubro"),

@@ -19,7 +19,9 @@ urlpatterns = [
     path('articulos/', include('articulos.urls')),
     #sucursales!!!
     path('sucursales/', include('sucursales.urls')),
-
+#usuarios
+    path('usuarios/', include('usuarios.urls')),
+    
     #passwords
     path(
         "password_change/", auth_views.PasswordChangeView.as_view(), name="password_change"

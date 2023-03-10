@@ -185,14 +185,5 @@ EMAIL_USE_SSL = True
 
 EMAIL_FILE_PATH = os.path.join(BASE_DIR,'sent_emails'),
 DEFAULT_FROM_EMAIL =config('DEFAULT_FROM_EMAIL')
-#if DEBUG:
-#    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-##else:
-#    EMAIL_USE_TLS = True
-#    EMAIL_USE_SSL = True
-#    EMAIL_HOST = 'c2291054.ferozo.com'
-#    EMAIL_PORT = 465
-#    EMAIL_HOST_USER = 'admin@davidricardotorres.com.ar'
-#    EMAIL_HOST_PASSWORD = 'Tk@UAsM5qB'
-#    pass
+
