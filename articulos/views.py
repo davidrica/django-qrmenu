@@ -41,7 +41,7 @@ class Listado(LoginRequiredMixin, IsAdminMixin,ListView):
         #my_date = datetime.datetime(2012, 2, 12)
         mi_empresa = self.request.user.empresa
         articulos = Articulos.objects.all()
-        
+         
         parametros = {}
         parametros["empresa"]= mi_empresa
         
