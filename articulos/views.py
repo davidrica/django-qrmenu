@@ -39,9 +39,11 @@ class Listado(LoginRequiredMixin, IsAdminMixin,ListView):
     def get_queryset(self):
         
         #my_date = datetime.datetime(2012, 2, 12)
+        mi_empresa = self.request.user.empresa
         articulos = Articulos.objects.all()
         
         parametros = {}
+        parametros["empresa"]= mi_empresa
         
         titulo   = self.request.GET.get("buscador")
         cat      = self.request.GET.get("rubro")

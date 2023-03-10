@@ -7,3 +7,4 @@ media/
 *.pyc
 *.env
 settings.py
+qrmenu/settings.py
