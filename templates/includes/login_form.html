@@ -37,7 +37,9 @@
                         <div class="text-center ">
                           <button class="btn btn-lg btn-outline-success" type="submit" name="btn_ingresar">Login</button>
                           <hr>
-                          <a class="btn btn-lg btn-outline-info"href="{% url 'password_reset' %}">Olvido su contraseña</a>
+                          <a class="btn btn-outline-info"href="{% url 'password_reset' %}">Olvido su contraseña</a>
+                          <hr>
+                          <a class="btn btn-outline-info"href="{% url 'Usuarios:registro' %}">Crear Usuario</a>
 
                         </div>
 
@@ -50,44 +52,7 @@
 
               </div>
 
-              <div class="col-sm-6">
-                <div class="card-body p-md-5 mx-md-4">
-                  <div class="text-center">
-                    <h4 class="mt-1 mb-5 pb-1">Registrarse</h4>
-                  </div>
-                  <!-- 
-                  <div class="text-center">
-                    <h4 class="mt-1 mb-5 pb-1">Nuevo Usuario o <a class="w-100 btn btn-lg btn-outline-danger"
-                        href="{% url 'inicio' %}">Volver</a></h4>
-                  </div> -->
-
-
-                  <div class="card">
-                    <div class="card-body">
-                      <form method="post" action="{% url 'Usuarios:registro' %}">{% csrf_token %}
-                        <div class="form-outline ">
-                          <input type="text" id="telefono" class="form-control" placeholder="+543644727579" name="telefono" />
-                          <label class="form-label" for="telefono">Teléfono</label>
-                        </div>
-                        <div class="form-outline ">
-                          <input type="email" id="correo" class="form-control" placeholder="usuario@dominio.com" name="correo" />
-                          <label class="form-label" for="correo">Correo</label>
-                        </div>
-                        <div class="form-outline ">
-                          <input type="text" id="newuser" class="form-control" placeholder="Nombre de usuario"name="newuser" />
-                          <label class="form-label" for="newuser">Nombre Usuario</label>
-                        </div>
-                        <button class="btn btn-lg btn-outline-success" type="submit" name="btn_Crear">Crear Usuario</button>
-                        
-                      </form>
-                      <div class="text-center pt-1 mb-5 pb-1">
-                        <div class="alert alert-danger" role="alert"> {{msg}}</div>
-                       
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              
               <div class="text-center pt-1 mb-5 pb-1">
                 
                 {% include 'includes/errores_form.html' %}
