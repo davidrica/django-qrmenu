@@ -4,91 +4,62 @@
 
 {% block contenido %}
 
-<body data-aos-easing="ease-in-out" data-aos-duration="1000" data-aos-delay="0" className="">
+<body data-aos-easing="ease-in-out" data-aos-duration="1000" data-aos-delay="300" className="">
   <div id="preloader"></div>
-
-
-
 
   <main id="main">
     <section id="menu" class="menu">
-      <div class="container">
+      <div class="container aos-init aos-animate" data-aos="fade-up">
+
+        <ul class="nav nav-tabs d-flex justify-content-center aos-init aos-animate" 
+          data-aos="fade-up" 
+          data-aos-delay="200" 
+          role="tablist">
+          {% for suc in sucursales %}
+          {% if suc.activa %}
+          <li class="nav-item" role="presentation" style="margin: 1em;" >
+
+ 
+          <div class="card" style="width: 18rem;">
+            
+            <div class="card-body">
+              <h5 class="card-title">
+                <div class="section-header">
+                  <p><span>{{suc}}</span></p>
+                </div>
+              </h5>
 
 
-        <div class="section-header">
-          <p>Menu <span>American Diner</span></p>
-        </div>
+              
+              {% if suc.imagen %}
+        
+              <img src="{{suc.imagen.url}}" class="card-img-top" alt="suc">
+            {% else %}
+              <img src="..." class="card-img-top" alt="...">
+        
+            {% endif %}
+            <a class="btn btn-outline-info"href="{% url 'inicio2' suc.empresa.id suc.id %}">Consultar</a>
+            </div>
+          </div>
+
+        </li>
+          {% endif %}
+        {% endfor %}
+        
+          
+            
+
+          
 
 
-        <ul class="nav nav-tabs d-flex justify-content-center aos-init aos-animate" data-aos="fade-up"
-          data-aos-delay="200">
-          {% for c in Rubros %}
-
-
-          <li class="nav-item">
-            {% if inicio == c %}
-            <a class="nav-link active show " data-bs-toggle="tab" data-bs-target="#{{c}}">
-              {%else%}
-              <a class="nav-link" data-bs-toggle="tab" data-bs-target="#{{c}}">
-                {% endif %}
-
-
-                <h4>{{c |lower|capfirst }}</h4>
-
-              </a>
-          </li>
-
-          {% endfor %}
         </ul>
 
-        <div class="tab-content aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
-          {% for c in Rubros %}
-          {% if inicio == c %}
-          <div class="tab-pane fade active show" id="{{c}}">
-            {%else%}
-            <div class="tab-pane fade" id="{{c}}">
-              {% endif %}
-              <div class="tab-header text-center">
-                <p>Menu</p>
-                <h3>{{c |lower|capfirst }}</h3>
-              </div>
-
-              <div class="row gy-5">
-                {% for arti in Articulos %}
-                {% if arti.menu %}
-
-                {% if arti.rubro == c %}
-                <div class="col-lg-4 menu-item">
-                  <h4>{{arti.descripcion |lower|capfirst }}</h4>
-                  <p class="ingredients">{{arti.receta |lower|capfirst }}</p>
-                  <p class="price">$ {{arti.precio}}</p>
 
 
-                </div>
-                {% endif %}
-                {% endif %}
+      </div>
 
-                {% endfor %}
-
-
-              </div>
-
-            </div>
-
-
-
-
-
-
-            {% endfor %}
-
-
-
-
-
-          </div>
-        </div>
     </section>
+
   </main>
 
   <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i

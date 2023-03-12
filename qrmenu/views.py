@@ -7,15 +7,16 @@ from empresa.models import Empresa
 from sucursales.models import Sucursales
 
 def inicio(request):
-    template_name = "index.html"
-      
-    contexto = {
+    template_name   = "index.html"
+    suc             =  Sucursales.objects.all() 
+    contexto        = {
+        'sucursales': suc,
        
     }
-    if not request.user.is_authenticated:
+    #if not request.user.is_authenticated:
 
 
-        return redirect("login")
+    #    return redirect("login")
     
     return render(request, template_name, contexto)
 

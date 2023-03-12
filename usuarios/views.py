@@ -31,8 +31,7 @@ def Registro(request):
                 newpassword = Usuario.objects.make_random_password()         
                 
                 user = Usuario.objects.create_user(username=newuser,es_admin=False,email=correo,telefono=telefono,password=newpassword)
-
-                email = EmailMessage('Subject', newpassword, to=[correo])
+                email = EmailMessage("Gracias Por Registrarse"  ,f"{newuser} su contraseña es: {newpassword}."  , to=[correo])
                 email.send()
             # msg = 'Controle su casilla de correo ' + correo + " alli tendra la contraseña de ingreso"
                 formulario= False
@@ -42,9 +41,6 @@ def Registro(request):
         #with urllib.request.urlopen('https://mensajesapp.com.ar/test.php?nTo=543644727579&msj=buenas') as response:
         #    html = response.read()
 
-    print(msg)
-    print(error)
-        
 
     contexto = {'msg':msg,'error':error ,'formulario':formulario}
     #message.error(request, 'bla bla bla')
