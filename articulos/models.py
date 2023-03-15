@@ -9,7 +9,7 @@ class Articulos(models.Model):
     receta     = models.TextField(default='',blank=True)
 
     precio     = models.DecimalField(max_digits=13,decimal_places=2)
-    imagen     = models.ImageField(upload_to="rubros",null=True, blank=True)
+    imagen     = models.ImageField(upload_to="articulos",null=True, blank=True)
     menu       = models.BooleanField(default=True)
     # relaciones 
     rubro      = models.ForeignKey(Rubros,on_delete=models.SET_NULL,null=True,related_name="arti_rubros",blank=True)

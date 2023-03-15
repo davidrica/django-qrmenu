@@ -5,8 +5,14 @@ from articulos.models import Articulos
 from rubros.models import Rubros
 from empresa.models import Empresa
 from sucursales.models import Sucursales
+from django.core.management.utils import get_random_secret_key
 
 def inicio(request):
+    
+
+# generating and printing the SECRET_KEY
+   
+
     template_name   = "index.html"
     suc             =  Sucursales.objects.all() 
     contexto        = {
@@ -47,33 +53,35 @@ def inicio2(request,empresa,sucursal):
         emp =   Empresa.objects.get(id=empresa)
         if Sucursales.objects.filter(id=sucursal).exists():
             suc = Sucursales.objects.get(id=sucursal)
-            parametros = {}
             
-            parametros["empresa"]= empresa
-            #todos los rubros de la empresa
-            rubros    = Rubros.objects.filter(**parametros)
-            
-            parametros["sucursal"]= sucursal
+            if suc.activa:
+                parametros = {}
+                
+                parametros["empresa"]= empresa
+                #todos los rubros de la empresa
+                rubros    = Rubros.objects.filter(**parametros)
+                
+                parametros["sucursal"]= sucursal
 
-            articulos = Articulos.objects.filter(**parametros)
-            #todos los rubros de los articulso
-            rubros =Rubros.objects.filter(arti_rubros__in=articulos.values_list('rubro')).distinct()
-            #articulos = articulos.objects.filter()
-            
-            # ===============================
-            # query en django utilizando el orm
-            #rubros    = Rubros.objects.filter(**parametros)
-            #inicio    = Rubros.objects.first()#.filter(empresa=emp.id).first() 
-           # print(rubros)
-            contexto = {
-                'sucursal':suc.descripcion,
-                'Articulos': articulos.order_by('descripcion',"rubro"),
-                'Rubros':rubros.order_by("descripcion"),
-                #'inicio':inicio,
-            }
-    
-            return render(request, template_name, contexto)
-    return redirect("Sucursales:listado")
+                articulos = Articulos.objects.filter(**parametros)
+                #todos los rubros de los articulso
+                rubros =Rubros.objects.filter(arti_rubros__in=articulos.values_list('rubro')).distinct()
+                #articulos = articulos.objects.filter()
+                
+                # ===============================
+                # query en django utilizando el orm
+                #rubros    = Rubros.objects.filter(**parametros)
+                #inicio    = Rubros.objects.first()#.filter(empresa=emp.id).first() 
+            # print(rubros)
+                contexto = {
+                    'sucursal':suc.descripcion,
+                    'Articulos': articulos.order_by('descripcion',"rubro"),
+                    'Rubros':rubros.order_by("descripcion"),
+                    #'inicio':inicio,
+                }
+
+                return render(request, template_name, contexto)
+    return redirect("inicio")
 
 def inicio3(request):
     template_name = "modelo3.html"
