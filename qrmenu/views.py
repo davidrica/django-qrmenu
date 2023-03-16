@@ -57,25 +57,19 @@ def inicio2(request,empresa,sucursal):
             if suc.activa:
                 parametros = {}
                 
-                parametros["empresa"]= empresa
-                #todos los rubros de la empresa
-                rubros    = Rubros.objects.filter(**parametros)
+                parametros["empresa"]  = empresa
                 
-                parametros["sucursal"]= sucursal
+                parametros["sucursal"] = sucursal
 
                 articulos = Articulos.objects.filter(**parametros)
-                #todos los rubros de los articulso
-                rubros =Rubros.objects.filter(arti_rubros__in=articulos.values_list('rubro')).distinct()
-                #articulos = articulos.objects.filter()
-                
-                # ===============================
-                # query en django utilizando el orm
-                #rubros    = Rubros.objects.filter(**parametros)
-                #inicio    = Rubros.objects.first()#.filter(empresa=emp.id).first() 
-            # print(rubros)
+
+                ids = articulos.order_by('rubro').values_list('rubro').distinct()
+
+                rubros = Rubros.objects.filter(id__in=ids)
+
                 contexto = {
                     'sucursal':suc.descripcion,
-                    'Articulos': articulos.order_by('descripcion',"rubro"),
+                    'Articulos': articulos.order_by('rubro','descripcion'),
                     'Rubros':rubros.order_by("descripcion"),
                     #'inicio':inicio,
                 }

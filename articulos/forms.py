@@ -14,8 +14,8 @@ class ArticuloForm(forms.ModelForm):
     descripcion= forms.CharField(label="Descripcion", widget=forms.TextInput())
     #precio= forms.CharField(label="Precio", widget=forms.DecimalField(is_hidden=False))
 
-    sucursal = forms.ModelMultipleChoiceField(queryset=Sucursales.objects.all(),
-       widget=forms.CheckboxSelectMultiple)
+    #sucursal = forms.ModelMultipleChoiceField(queryset=Sucursales.objects.all(),
+    #   widget=forms.CheckboxSelectMultiple)
 
 
     class Meta:
@@ -24,6 +24,6 @@ class ArticuloForm(forms.ModelForm):
     
     def clean_precio(self):
         precio = self.cleaned_data["precio"]
-        if precio <= 0:
+        if precio < 0:
             raise forms.ValidationError("El precio debe ser un numero positivo")
         return precio 

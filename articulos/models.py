@@ -13,7 +13,7 @@ class Articulos(models.Model):
     menu       = models.BooleanField(default=True)
     # relaciones 
     rubro      = models.ForeignKey(Rubros,on_delete=models.SET_NULL,null=True,related_name="arti_rubros",blank=True)
-    sucursal   = models.ManyToManyField(Sucursales)
+    sucursal   = models.ManyToManyField(Sucursales, blank=True,default='')
     empresa   = models.ForeignKey(Empresa,on_delete=models.SET_NULL,null=True,related_name="articulos_empresa",blank=True)
 
     #/media/articulos
