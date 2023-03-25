@@ -124,7 +124,13 @@ def Importar(request):
             rubro = Rubros.objects.first()
            
             fileartis = request.FILES['xlsarticulos']
-            data_import = dataset.load(fileartis.read())
+            name, extension = os.path.splitext(
+                request.FILES['xlsarticulos'].name
+            )
+
+            data_import = dataset.load(fileartis.read(), extension[1:])
+            
+
 
             for row in data_import:
                 codigo, descripcion,precio = row

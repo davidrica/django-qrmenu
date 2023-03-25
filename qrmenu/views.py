@@ -10,8 +10,8 @@ from django.core.management.utils import get_random_secret_key
 def inicio(request):
     
 
-# generating and printing the SECRET_KEY
-   
+    # generating and printing the SECRET_KEY
+    print(get_random_secret_key())
 
     template_name   = "index.html"
     suc             =  Sucursales.objects.all() 
