@@ -108,8 +108,12 @@ def Importar(request):
         dataset = Dataset()
         if 'xlsrubos' in request.FILES:
             filerubros = request.FILES['xlsrubos']
-            data_rubros = dataset.load(filerubros.read())
-            
+            name, extension = os.path.splitext(
+                request.FILES['xlsrubos'].name
+            )
+
+            data_rubros = dataset.load(filerubros.read(), extension[1:])
+
             for row in data_rubros:
                 
                 descripcion ,a,b,c,d,h,i= row
