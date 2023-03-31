@@ -60,7 +60,9 @@ def inicio2(request,empresa,sucursal):
                 parametros["empresa"]  = empresa
                 
                 parametros["sucursal"] = sucursal
-
+                
+                parametros["menu"] =True
+                
                 articulos = Articulos.objects.filter(**parametros)
 
                 ids = articulos.order_by('rubro').values_list('rubro').distinct()

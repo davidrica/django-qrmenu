@@ -31,7 +31,7 @@
 
             <div class="row gy-5" style="--bs-gutter-y: 0px;--bs-gutter-x: 0px">
               {% for arti in Articulos %}
-                {% if arti.menu %}
+                
                   {% if arti.rubro == rubro %}
                     <div class="col-lg-4 " style="border-bottom: 1px solid black; margin-left: 10px;margin-top: 10px;" >
                       <div class="row justify-content-between">
@@ -45,7 +45,7 @@
                       </div>
                     </div>
                   {% endif %}
-                {% endif %}
+         
                 
                 {% empty %}
                 
