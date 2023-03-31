@@ -72,7 +72,7 @@ class Listado(LoginRequiredMixin, IsAdminMixin,ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
-        context["ListaRubros"] =  Rubros.objects.all()
+        context["ListaRubros"] =  Rubros.objects.all().order_by("descripcion")
         return context
 
 

@@ -65,12 +65,12 @@ def inicio2(request,empresa,sucursal):
 
                 ids = articulos.order_by('rubro').values_list('rubro').distinct()
 
-                rubros = Rubros.objects.filter(id__in=ids)
+                rubros = Rubros.objects.filter(id__in=ids,menu=True)
 
                 contexto = {
                     'sucursal':suc.descripcion,
                     'Articulos': articulos.order_by('rubro','descripcion'),
-                    'Rubros':rubros.order_by("descripcion"),
+                    'Rubros':rubros.order_by("order"),
                     #'inicio':inicio,
                 }
 
