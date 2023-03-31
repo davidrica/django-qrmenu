@@ -31,19 +31,22 @@
 
             <div class="row gy-5" style="--bs-gutter-y: 0px;--bs-gutter-x: 0px">
               {% for arti in Articulos %}
-                {% if arti.rubro == rubro %}
-                  <div class="col-lg-4 " style="border-bottom: 1px solid black; margin-left: 10px;margin-top: 10px;" >
-                    <div class="row justify-content-between">
-                      <div class="col" style="text-align-last: left; ">
-                        <h4 style="font-family: 'El Fonte Angelia', sans-serif;">{{arti.descripcion |lower|capfirst }}</h4>
-                      </div>
-                      <div class="col" style="text-align-last: right;">
-                      <p class="price" style="font-family: 'El Fonte Angelia', sans-serif;; color: black; ">$ {{arti.precio}}</p>
-                   </div>
-
+                {% if arti.menu %}
+                  {% if arti.rubro == rubro %}
+                    <div class="col-lg-4 " style="border-bottom: 1px solid black; margin-left: 10px;margin-top: 10px;" >
+                      <div class="row justify-content-between">
+                        <div class="col" style="text-align-last: left; ">
+                          <h4 style="font-family: 'El Fonte Angelia', sans-serif;">{{arti.descripcion |lower|capfirst }}</h4>
+                        </div>
+                        <div class="col" style="text-align-last: right;">
+                        <p class="price" style="font-family: 'El Fonte Angelia', sans-serif;; color: black; ">$ {{arti.precio}}</p>
                     </div>
-                  </div>
+
+                      </div>
+                    </div>
+                  {% endif %}
                 {% endif %}
+                
                 {% empty %}
                 
               {% endfor %}
