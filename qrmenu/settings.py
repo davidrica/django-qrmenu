@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'sucursales',
     'usuarios',
     'rubros',
-    'import_export',
+#    'import_export',
     'corsheaders'
 ]
 
