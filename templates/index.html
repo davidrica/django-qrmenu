@@ -11,45 +11,43 @@
     <section id="menu" class="menu">
       <div class="container aos-init aos-animate" data-aos="fade-up">
 
-        <ul class="nav nav-tabs d-flex justify-content-center aos-init aos-animate" 
-          data-aos="fade-up" 
-          data-aos-delay="200" 
-          role="tablist">
+        <ul class="nav nav-tabs d-flex justify-content-center aos-init aos-animate" data-aos="fade-up"
+          data-aos-delay="200" role="tablist">
           {% for suc in sucursales %}
           {% if suc.activa %}
-          <li class="nav-item" role="presentation" style="margin: 1em;" >
-
- 
-          <div class="card" style="width: 18rem;">
-            
-            <div class="card-body">
-              <h5 class="card-title">
-                <div class="section-header">
-                  <p><span>{{suc}}</span></p>
-                </div>
-              </h5>
+          <li class="nav-item" role="presentation" style="margin: 1em;">
 
 
-              
-              {% if suc.imagen %}
-        
-              <img src="{{suc.imagen.url}}" class="card-img-top" alt="suc">
-            {% else %}
-              <img src="..." class="card-img-top" alt="...">
-        
-            {% endif %}
-            <a class="btn btn-outline-info"href="{% url 'inicio2' suc.empresa.id suc.id %}">Consultar</a>
+            <div class="card" style="width: 18rem;">
+
+              <div class="card-body">
+                <h5 class="card-title">
+                  <div class="section-header">
+                    <p><span>{{suc}}</span></p>
+                  </div>
+                </h5>
+
+
+
+                {% if suc.imagen %}
+
+                <img src="{{suc.imagen.url}}" class="card-img-top" alt="suc">
+                {% else %}
+                <img src="..." class="card-img-top" alt="...">
+
+                {% endif %}
+                <a class="btn btn-outline-info" href="{% url 'inicio3' suc.empresa.id suc.id %}">Consultar</a>
+              </div>
             </div>
-          </div>
 
-        </li>
+          </li>
           {% endif %}
-        {% endfor %}
-        
-          
-            
+          {% endfor %}
 
-          
+
+
+
+
 
 
         </ul>
