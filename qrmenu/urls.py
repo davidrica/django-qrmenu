@@ -12,12 +12,12 @@ urlpatterns = [
 
 
 
-    path('modelo2/<int:empresa>/<int:sucursal>/', views.inicio2, name="inicio2"),
+    path('modelo2/<int:empresa>/<int:sucursal>/', views.inicio3, name="inicio2"),
 
 
     path('', views.inicio, name="inicio"),
     # path('modelo2', views.inicio2, name="inicio2"),
-    path('modelo3/<int:empresa>/<int:sucursal>/', views.inicio3, name="inicio3"),
+    # path('modelo3/<int:empresa>/<int:sucursal>/', views.inicio3, name="inicio3"),
     path('articulos/', include('articulos.urls')),
     # sucursales!!!
     path('sucursales/', include('sucursales.urls')),
